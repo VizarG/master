@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sas": {
+      "type": "string"
+    },
+    "storageUri": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "defaultValue": "webappKpetrenko"
+    }
+  },
+  "variables": {},
+  "functions": [
+    {
+      "namespace": "WebAppKPetrenko",
+      "members": {
+        "getWebdName": {
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string"
+            }
+          ],
+          "output": {
+            "type": "string",
+            "value": "[concat(parameters('name'), uniquestring(resourceGroup().id))]"
+          }
+        }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "apiVersion": "2017-05-10",
+      "name": "linkedTemplateWebAppWithSlot",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('storageUri'), '/WebAppwith1Slot.json' ,parameters('sas'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "baseResourceName": {
+            "value": "[WebAppKPetrenko.getWebdName(parameters('name'))]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "mainout": {
+      "type": "string",
+      "value": "[parameters('storageUri')]"
+    }
+  }
+}
