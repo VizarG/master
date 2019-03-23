@@ -3,7 +3,6 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "baseResourceName": {
-            "defaultValue": "BaseWebaithslot",
             "type": "string",
             "metadata": {
                 "description": "Name of the resource"
