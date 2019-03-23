@@ -26,9 +26,9 @@ param (
     $Mysubscription = "Konstantin_Petrenko@epam.com"
 )
 
-# $Credentials = Get-Credential
+$Credentials = Get-Credential
 # #connect to my subscription
-# Connect-AzAccount -Subscription $Mysubscription -Credential $Credentials
+Connect-AzAccount -Subscription $Mysubscription -Credential $Credentials
 
 #Start of creating of uniq name for the storage with nedeed lenght ps(you can set lenth that you want it's up to you)
 function Get-RandomCharacters {
